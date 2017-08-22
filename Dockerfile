@@ -10,7 +10,6 @@ RUN curl -o /tmp/runtimestore.tar.gz $ASPNETCORE_RUNTIMESTORE_DOWNLOAD_URL \
     && export DOTNET_HOME=$(dirname $(readlink $(which dotnet))) \
     && tar -x -C $DOTNET_HOME -f /tmp/runtimestore.tar.gz \
     && rm /tmp/runtimestore.tar.gz
-    && apt-get update \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash \
     && apt-get -y install nodejs \
     && apt-get -y install bzip2 \
