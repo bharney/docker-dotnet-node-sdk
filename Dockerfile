@@ -14,7 +14,11 @@ RUN apt-get update \
         libunwind8 \
         libuuid1 \
         zlib1g \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -sL https://deb.nodesource.com/setup_8.x | bash \
+    && apt-get -y install nodejs \
+    && apt-get -y install bzip2 \
+    && apt-get -y install libfontconfig
 
 # Install .NET Core SDK
 ENV DOTNET_SDK_VERSION 2.0.0
@@ -26,13 +30,8 @@ RUN curl -SL $DOTNET_SDK_DOWNLOAD_URL --output dotnet.tar.gz \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
     && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
-    && apt-get update \
-    && curl -sL https://deb.nodesource.com/setup_8.x | bash \
-    && apt-get -y install nodejs \
-    && apt-get -y install bzip2 \
-    && apt-get -y install libfontconfig
-    
+    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
+
 # Trigger the population of the local package cache
 ENV NUGET_XMLDOC_MODE skip
 RUN mkdir warmup \
